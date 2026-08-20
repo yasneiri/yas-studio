@@ -1,9 +1,10 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { Film, Image as ImgIcon, Music, Settings, Sparkles, Search, Coins, ChevronDown, LayoutGrid, Workflow } from "lucide-react";
+// Workflow icon is used for the pipeline editor nav entry.
 import { ALL_VIDEO, IMAGE_MODELS, AUDIO_MODELS, TEMPLATES, MODEL_THUMBNAILS, DEFAULT_THUMBNAIL, PROVIDER_COLORS, type Model } from "@/lib/nav-data";
 
-export type Tab = "video" | "image" | "audio" | "templates" | "settings";
+export type Tab = "video" | "image" | "audio" | "workflow" | "templates" | "settings";
 
 type DropItem = { model: Model; onPick: () => void };
 
@@ -144,6 +145,8 @@ export default function TopNav({
             </div>
             <ModelList items={audioItems} />
           </NavMenu>
+
+          <NavMenu id="workflow" label="Workflow" icon={Workflow} active={tab === "workflow"} onActivate={() => setTab("workflow")} open={false} setOpen={setOpen} />
 
           <NavMenu id="templates" label="Templates" icon={LayoutGrid} active={tab === "templates"} onActivate={() => setTab("templates")} open={open === "templates"} setOpen={setOpen}>
             <div className="px-2 pt-1 pb-2">
