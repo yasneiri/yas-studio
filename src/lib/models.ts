@@ -12,13 +12,13 @@ export interface Model {
 // ── VIDEO MODELS ────────────────────────────────────────────────
 export const VIDEO_MODELS: Model[] = [
   // Seedance (ByteDance)
-  { id: "bytedance/seedance-2-5", name: "Seedance 2.5", provider: "ByteDance", type: "t2v", tag: "new" },
-  { id: "bytedance/seedance-2-standard", name: "Seedance 2.0", provider: "ByteDance", type: "t2v", tag: "popular" },
+  { id: "bytedance/seedance-2.5", name: "Seedance 2.5", provider: "ByteDance", type: "t2v", tag: "new" },
+  { id: "bytedance/seedance-2", name: "Seedance 2.0", provider: "ByteDance", type: "t2v", tag: "popular" },
   { id: "bytedance/seedance-2-fast", name: "Seedance 2.0 Fast", provider: "ByteDance", type: "t2v", tag: "fast" },
   { id: "bytedance/seedance-2-mini", name: "Seedance 2.0 Mini", provider: "ByteDance", type: "t2v" },
-  { id: "bytedance/seedance-1-5-pro", name: "Seedance 1.5 Pro", provider: "ByteDance", type: "t2v" },
+  { id: "bytedance/seedance-1.5-pro", name: "Seedance 1.5 Pro", provider: "ByteDance", type: "t2v" },
   // Kling 3.0
-  { id: "kling-3.0", name: "Kling 3.0", provider: "Kuaishou", type: "t2v", tag: "popular" },
+  { id: "kling/v3-standard-text-to-video", name: "Kling 3.0", provider: "Kuaishou", type: "t2v", tag: "popular" },
   { id: "kling/v3-turbo-text-to-video", name: "Kling 3.0 Turbo T2V", provider: "Kuaishou", type: "t2v", tag: "fast" },
   { id: "kling/v3-turbo-image-to-video", name: "Kling 3.0 Turbo I2V", provider: "Kuaishou", type: "i2v", tag: "fast" },
   { id: "kling/v3-omni-text-to-video", name: "Kling 3.0 Omni T2V", provider: "Kuaishou", type: "t2v", tag: "pro" },
@@ -27,8 +27,8 @@ export const VIDEO_MODELS: Model[] = [
   { id: "kling/v3-omni-transformation", name: "Kling 3.0 Omni Transform", provider: "Kuaishou", type: "v2v" },
   { id: "kling/motion-control-v3", name: "Kling 3.0 Motion Control", provider: "Kuaishou", type: "i2v" },
   // Kling 2.x
-  { id: "kling-2.6/text-to-video", name: "Kling 2.6 T2V", provider: "Kuaishou", type: "t2v" },
-  { id: "kling-2.6/image-to-video", name: "Kling 2.6 I2V", provider: "Kuaishou", type: "i2v" },
+  { id: "kling/v2-6-text-to-video", name: "Kling 2.6 T2V", provider: "Kuaishou", type: "t2v" },
+  { id: "kling/v2-6-image-to-video", name: "Kling 2.6 I2V", provider: "Kuaishou", type: "i2v" },
   { id: "kling/motion-control", name: "Kling 2.6 Motion Control", provider: "Kuaishou", type: "i2v" },
   { id: "kling/v25-turbo-text-to-video-pro", name: "Kling 2.5 Turbo T2V", provider: "Kuaishou", type: "t2v" },
   { id: "kling/v25-turbo-image-to-video-pro", name: "Kling 2.5 Turbo I2V", provider: "Kuaishou", type: "i2v" },
@@ -95,10 +95,10 @@ export const VIDEO_MODELS: Model[] = [
   // Upscale
   { id: "topaz/video-upscale", name: "Topaz Video Upscale", provider: "Topaz", type: "upscale", tag: "pro" },
   // ByteDance Legacy
-  { id: "bytedance/v1-pro-text-to-video", name: "ByteDance V1 Pro T2V", provider: "ByteDance", type: "t2v" },
-  { id: "bytedance/v1-pro-image-to-video", name: "ByteDance V1 Pro I2V", provider: "ByteDance", type: "i2v" },
-  { id: "bytedance/v1-lite-text-to-video", name: "ByteDance V1 Lite T2V", provider: "ByteDance", type: "t2v" },
-  { id: "bytedance/v1-lite-image-to-video", name: "ByteDance V1 Lite I2V", provider: "ByteDance", type: "i2v" },
+  { id: "bytedance/seedance-1-pro", name: "ByteDance V1 Pro T2V", provider: "ByteDance", type: "t2v" },
+  { id: "bytedance/seedance-1-pro-i2v", name: "ByteDance V1 Pro I2V", provider: "ByteDance", type: "i2v" },
+  { id: "bytedance/seedance-1-lite", name: "ByteDance V1 Lite T2V", provider: "ByteDance", type: "t2v" },
+  { id: "bytedance/seedance-1-lite-i2v", name: "ByteDance V1 Lite I2V", provider: "ByteDance", type: "i2v" },
 ];
 
 // ── VEO MODELS (separate endpoint) ──────────────────────────────
@@ -185,7 +185,7 @@ export const TEMPLATES: Template[] = [
     title: "Cinematic Hero Shot",
     description: "30s cinematic commercial with locked color grading, ARRI Alexa Mini LF look",
     category: "Commercial",
-    models: ["bytedance/seedance-2-5"],
+    models: ["bytedance/seedance-2.5"],
     prompt: "Cinematic hero shot, ARRI Alexa Mini LF, 35mm anamorphic lens, warm golden hour lighting, shallow depth of field, slow dolly push-in, professional color grading with teal and orange tones, 4K quality, film grain",
     params: { duration: "30", resolution: "1080p", aspect_ratio: "16:9" },
     color: "from-amber-600 to-orange-700",
@@ -215,7 +215,7 @@ export const TEMPLATES: Template[] = [
     title: "Social Media Reel",
     description: "Vertical 9:16 short-form video optimized for TikTok/Reels",
     category: "Social",
-    models: ["kling-3.0"],
+    models: ["kling/v3-standard-text-to-video"],
     prompt: "Dynamic vertical video, trendy transitions, vibrant colors, fast-paced editing feel, social media aesthetic, engaging movement, modern look",
     params: { duration: "15", resolution: "1080p", aspect_ratio: "9:16" },
     color: "from-pink-600 to-rose-700",
@@ -265,7 +265,7 @@ export const TEMPLATES: Template[] = [
     title: "AI Music + Video",
     description: "Generate music with Suno then create a matching visual",
     category: "Music",
-    models: ["bytedance/seedance-2-5"],
+    models: ["bytedance/seedance-2.5"],
     prompt: "Abstract visual journey synchronized to music, flowing colors and shapes, dreamlike transitions, cinematic atmosphere, rhythmic camera movements matching musical beats",
     params: { duration: "30", resolution: "1080p", aspect_ratio: "16:9" },
     color: "from-fuchsia-600 to-purple-700",
@@ -275,7 +275,7 @@ export const TEMPLATES: Template[] = [
     title: "Real Estate Tour",
     description: "Smooth interior walkthrough from a single photo",
     category: "Business",
-    models: ["bytedance/seedance-2-standard"],
+    models: ["bytedance/seedance-2"],
     prompt: "Smooth interior walkthrough, steady camera glide through modern apartment, natural window light, warm tones, real estate showcase, professional staging, wide angle lens",
     params: { duration: "15", resolution: "1080p", aspect_ratio: "16:9" },
     color: "from-stone-600 to-zinc-700",
@@ -286,13 +286,13 @@ export const TEMPLATES: Template[] = [
 // ── MODEL THUMBNAILS — gradient + preview text ─────────────────
 export const MODEL_THUMBNAILS: Record<string, { gradient: string; preview: string; icon: string }> = {
   // Seedance
-  "bytedance/seedance-2-5": { gradient: "from-orange-500 via-red-500 to-pink-600", preview: "30s cinematic, 4K, omni-ref", icon: "🎬" },
-  "bytedance/seedance-2-standard": { gradient: "from-orange-400 to-rose-500", preview: "15s high quality, audio sync", icon: "🎥" },
+  "bytedance/seedance-2.5": { gradient: "from-orange-500 via-red-500 to-pink-600", preview: "30s cinematic, 4K, omni-ref", icon: "🎬" },
+  "bytedance/seedance-2": { gradient: "from-orange-400 to-rose-500", preview: "15s high quality, audio sync", icon: "🎥" },
   "bytedance/seedance-2-fast": { gradient: "from-amber-400 to-orange-500", preview: "Fast drafts, 480-720p", icon: "⚡" },
   "bytedance/seedance-2-mini": { gradient: "from-yellow-400 to-amber-500", preview: "Quick lightweight clips", icon: "📱" },
-  "bytedance/seedance-1-5-pro": { gradient: "from-orange-300 to-red-400", preview: "Audio + lip-sync native", icon: "🎤" },
+  "bytedance/seedance-1.5-pro": { gradient: "from-orange-300 to-red-400", preview: "Audio + lip-sync native", icon: "🎤" },
   // Kling 3.0
-  "kling-3.0": { gradient: "from-blue-500 via-indigo-500 to-violet-600", preview: "Multi-shot, Elements, 15s", icon: "🎭" },
+  "kling/v3-standard-text-to-video": { gradient: "from-blue-500 via-indigo-500 to-violet-600", preview: "Multi-shot, Elements, 15s", icon: "🎭" },
   "kling/v3-turbo-text-to-video": { gradient: "from-blue-400 to-indigo-500", preview: "Fast Kling 3.0 text-to-video", icon: "⚡" },
   "kling/v3-turbo-image-to-video": { gradient: "from-sky-400 to-blue-500", preview: "Fast image animation", icon: "🖼️" },
   "kling/v3-omni-text-to-video": { gradient: "from-indigo-500 to-purple-600", preview: "Omni: text+img+video+audio", icon: "👑" },
@@ -301,8 +301,8 @@ export const MODEL_THUMBNAILS: Record<string, { gradient: string; preview: strin
   "kling/v3-omni-transformation": { gradient: "from-fuchsia-500 to-pink-600", preview: "Video style transform", icon: "🔄" },
   "kling/motion-control-v3": { gradient: "from-blue-500 to-cyan-500", preview: "Motion transfer from ref", icon: "🕹️" },
   // Kling 2.x
-  "kling-2.6/text-to-video": { gradient: "from-blue-400 to-sky-500", preview: "Audio + speech native", icon: "🗣️" },
-  "kling-2.6/image-to-video": { gradient: "from-sky-400 to-cyan-500", preview: "Animate images v2.6", icon: "🖼️" },
+  "kling/v2-6-text-to-video": { gradient: "from-blue-400 to-sky-500", preview: "Audio + speech native", icon: "🗣️" },
+  "kling/v2-6-image-to-video": { gradient: "from-sky-400 to-cyan-500", preview: "Animate images v2.6", icon: "🖼️" },
   "kling/v2-1-master-text-to-video": { gradient: "from-indigo-400 to-blue-500", preview: "Cinema quality master", icon: "🎬" },
   "kling/v2-1-master-image-to-video": { gradient: "from-blue-300 to-indigo-400", preview: "Master I2V quality", icon: "💎" },
   "kling/ai-avatar-standard": { gradient: "from-cyan-400 to-blue-500", preview: "Talking avatar from photo", icon: "👤" },
