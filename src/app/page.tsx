@@ -1,14 +1,15 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { Film, Image as ImgIcon, Settings, Play, Loader2, Download, Clock, Coins, Sparkles, Camera, Wand2, LayoutGrid, Search, ChevronRight, Volume2 } from "lucide-react";
-import { IMAGE_MODELS, AUDIO_MODELS, TEMPLATES, TAG_STYLES, PROVIDER_COLORS, MODEL_THUMBNAILS, DEFAULT_THUMBNAIL, ALL_VIDEO } from "@/lib/nav-data";
-import TopNav, { type Tab } from "@/components/TopNav";
+import { Film, Image as ImgIcon, Music, Settings, Play, Loader2, Download, Clock, Coins, Sparkles, Camera, Wand2, LayoutGrid, Zap, Crown, Search, ChevronRight, X, Volume2, User } from "lucide-react";
+import { VIDEO_MODELS, VEO_MODELS, IMAGE_MODELS, AUDIO_MODELS, TEMPLATES, TAG_STYLES, PROVIDER_COLORS, MODEL_THUMBNAILS, DEFAULT_THUMBNAIL, type Model } from "@/lib/models";
 
+type Tab = "video" | "image" | "audio" | "templates" | "settings";
 type GenState = "idle" | "generating" | "complete" | "error";
 
 const ASPECTS = ["16:9", "9:16", "1:1", "4:3", "3:4"];
 const DURATIONS = ["5", "10", "15", "30"];
 const RESOLUTIONS = ["480p", "720p", "1080p"];
+const ALL_VIDEO = [...VIDEO_MODELS, ...VEO_MODELS];
 
 export default function Home() {
   const [tab, setTab] = useState<Tab>("video");
@@ -19,7 +20,7 @@ export default function Home() {
   const [showImgModels, setShowImgModels] = useState(false);
 
   // Video
-  const [model, setModel] = useState<string>("bytedance/seedance-2-5");
+  const [model, setModel] = useState<string>("bytedance/seedance-2.5");
   const [prompt, setPrompt] = useState("");
   const [aspect, setAspect] = useState("16:9");
   const [dur, setDur] = useState("5");
@@ -96,28 +97,48 @@ export default function Home() {
   // ── Tag badge ─────────────────────────────────────────────────
   const Tag = ({ tag }: { tag?: string }) => tag ? <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium uppercase ${TAG_STYLES[tag] || ""}`}>{tag}</span> : null;
 
-  const pickVideo = (id: string) => { setModel(id); setSearch(""); setTab("video"); };
-  const pickImage = (id: string) => { setImgModel(id); setSearch(""); setTab("image"); };
-  const pickTemplate = (id: string) => { const t = TEMPLATES.find(x => x.id === id); if (t) loadTemplate(t); };
+  const navItems: { id: Tab; icon: typeof Film; label: string }[] = [
+    { id: "video", icon: Film, label: "Video" },
+    { id: "image", icon: ImgIcon, label: "Image" },
+    { id: "audio", icon: Music, label: "Audio" },
+    { id: "templates", icon: LayoutGrid, label: "Templates" },
+    { id: "settings", icon: Settings, label: "Settings" },
+  ];
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
-      {/* ═══ TOP NAV ═══ */}
-      <TopNav
-        tab={tab} setTab={setTab}
-        search={search} setSearch={setSearch}
-        credits={credits}
-        onPickVideo={pickVideo}
-        onPickImage={pickImage}
-        onPickTemplate={pickTemplate}
-      />
+    <div className="flex h-screen overflow-hidden">
+      {/* ═══ SIDEBAR ═══ */}
+      <aside className="w-14 lg:w-52 flex-shrink-0 bg-bg-card border-r border-bg-border flex flex-col">
+        <div className="p-2 lg:p-4 border-b border-bg-border flex items-center gap-2">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-accent to-sky flex items-center justify-center flex-shrink-0">
+            <Sparkles className="w-5 h-5 text-white" />
+          </div>
+          <span className="hidden lg:block font-display font-bold text-base tracking-tight">Yas Studio</span>
+        </div>
+        <nav className="flex-1 p-1.5 space-y-0.5">
+          {navItems.map(({ id, icon: Icon, label }) => (
+            <button key={id} onClick={() => setTab(id)}
+              className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-[13px] font-medium transition-all ${
+                tab === id ? "bg-accent/15 text-accent-hover" : "text-gray-500 hover:bg-bg-hover hover:text-gray-300"
+              }`}>
+              <Icon className="w-[18px] h-[18px] flex-shrink-0" />
+              <span className="hidden lg:block">{label}</span>
+            </button>
+          ))}
+        </nav>
+        {credits !== null && (
+          <div className="p-2 lg:p-3 border-t border-bg-border">
+            <div className="flex items-center gap-2 text-[11px] text-gray-500"><Coins className="w-3.5 h-3.5" /><span className="hidden lg:block">{credits.toLocaleString()} credits</span></div>
+          </div>
+        )}
+      </aside>
 
       {/* ═══ MAIN ═══ */}
       <main className="flex-1 overflow-y-auto">
 
         {/* ─── VIDEO STUDIO ─── */}
         {tab === "video" && (
-          <div className="max-w-[1600px] mx-auto p-4 lg:p-6 space-y-5">
+          <div className="max-w-[1400px] mx-auto p-4 lg:p-6 space-y-5">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="font-display text-xl font-bold flex items-center gap-2"><Film className="w-5 h-5 text-accent" /> Video Studio</h1>
@@ -271,7 +292,7 @@ export default function Home() {
 
         {/* ─── IMAGE STUDIO ─── */}
         {tab === "image" && (
-          <div className="max-w-[1600px] mx-auto p-4 lg:p-6 space-y-5">
+          <div className="max-w-[1400px] mx-auto p-4 lg:p-6 space-y-5">
             <h1 className="font-display text-xl font-bold flex items-center gap-2"><ImgIcon className="w-5 h-5 text-sky" /> Image Studio</h1>
             <p className="text-gray-500 text-xs -mt-3">{IMAGE_MODELS.length} models · Seedream, Flux, Imagen, GPT Image and more</p>
             <div className="grid lg:grid-cols-[1fr_360px] gap-5">
@@ -354,7 +375,7 @@ export default function Home() {
 
         {/* ─── TEMPLATES ─── */}
         {tab === "templates" && (
-          <div className="max-w-[1600px] mx-auto p-4 lg:p-6 space-y-5">
+          <div className="max-w-[1400px] mx-auto p-4 lg:p-6 space-y-5">
             <h1 className="font-display text-xl font-bold flex items-center gap-2"><LayoutGrid className="w-5 h-5 text-amber-400" /> Templates</h1>
             <p className="text-gray-500 text-xs">Pre-built prompts and configs. Click to load into Video Studio.</p>
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
