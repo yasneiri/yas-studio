@@ -2,13 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
 html{color-scheme:dark}
 body{@apply bg-bg text-gray-100 font-body antialiased}
-::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:#111113}
 ::-webkit-scrollbar-thumb{@apply bg-bg-border rounded-full}
+
 .card{@apply bg-bg-card border border-bg-border rounded-2xl}
 .card-sm{@apply bg-bg-card border border-bg-border rounded-xl}
 .card-hover{@apply hover:border-accent/30 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)] transition-all duration-300}
+
+/* ── Glassmorphism ─────────────────────────────────────────── */
+.glass{
+  background:rgba(17,17,19,0.55);
+  backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid rgba(255,255,255,0.06);
+}
+.glass-nav{
+  background:rgba(9,9,11,0.65);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.glass-panel{
+  background:rgba(17,17,19,0.85);
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 24px 60px -12px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.02) inset;
+}
+
+/* ── Animations ────────────────────────────────────────────── */
 @keyframes pglow{0%,100%{box-shadow:0 0 20px rgba(139,92,246,0.15)}50%{box-shadow:0 0 50px rgba(139,92,246,0.3)}}
 .animate-glow{animation:pglow 2s ease-in-out infinite}
+
+@keyframes dropIn{from{opacity:0;transform:translateY(-8px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.animate-drop{animation:dropIn 0.16s cubic-bezier(0.16,1,0.3,1)}
+
+@media (prefers-reduced-motion:reduce){
+  .animate-glow,.animate-drop{animation:none}
+}
